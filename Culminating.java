@@ -4,7 +4,7 @@ public class Culminating{
 	
 	public static void main(String[]args){
 		Console con=new Console();
-		con.println("Test");
+		con.println("Hello");
 		String strUserName;
 		String intChoie;
 		String strQuizChoice;
