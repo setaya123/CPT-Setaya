@@ -62,7 +62,7 @@ public static void showAvailableQuizzes(Console con){
 		
 		int intAmount=intLines/6;
 		
-		String[][]quizParts=new String[intAmount][6];
+		String[][]quizParts=new String[intAmount][7];
 		int[]randomNumbers=new int[intAmount];
 		Random rand=new Random();
 		
@@ -75,6 +75,7 @@ public static void showAvailableQuizzes(Console con){
 			quizParts[i][4]=quizFile.readLine();
 			quizParts[i][5]=quizFile.readLine();
 			randomNumbers[i]=(int)(Math.random()*100)+1;
+			quizParts[i][6]=""+randomNumbers[i];
 
 		}
 		quizFile.close();
@@ -96,15 +97,19 @@ public static void showAvailableQuizzes(Console con){
 		}
 	}
 	        int intCorrect=0;
+	        double dblPercentage=0;
+
 	        for(int i=0; i<intAmount; i++){
-				con.println(" " + quizParts[i][0]);
-				con.println(" a " + quizParts[i][1]);
-				con.println(" b " + quizParts[i][2]);
-				con.println(" c " + quizParts[i][3]);
-				con.println(" d " + quizParts[i][4]);	
+			    highScores(con, strUserName, strQuizChoice, intCorrect, intAmount, dblPercentage);
+				con.println(" Question: " + quizParts[i][0]);
+				con.println(" a) " + quizParts[i][1]);
+				con.println(" b) " + quizParts[i][2]);
+				con.println(" c) " + quizParts[i][3]);
+				con.println(" d) " + quizParts[i][4]);	
 			    con.println(" Enter your answer(a,b,c,d): ");
 			    String strAnswer=con.readLine();
-			    
+			    con.println();
+			   
 			int intuserAnswer=0;
 			
 			if(strAnswer.equalsIgnoreCase("a")){
@@ -115,18 +120,33 @@ public static void showAvailableQuizzes(Console con){
 				intuserAnswer=3;
 			}else if(strAnswer.equalsIgnoreCase("d")){
 				intuserAnswer=4;
+			}
 			
-			if(intuserAnswer==Integer.parseInt(quizParts[i][5])){
+			if(quizParts[i][intuserAnswer].equals(quizParts[i][5])){
 				 con.println(" Correct" );
+				 con.println();
 				 intCorrect=intCorrect+1;
 			}else{
 				con.println("Wrong. The correct answer was: " + quizParts[i][5]);
+				con.println();
 		    }
+		    dblPercentage=((double)intCorrect/(double)intAmount)*100;
 		}
+		//print after quiz is done
+		 dblPercentage=((double)intCorrect/(double)intAmount)*100; 
+        if(dblPercentage>=80){
+			con.println(" Congratulations, you passed the quiz! ");
+			con.println(" Quiz: " + strQuizChoice);
+			con.println(" Score:" + intCorrect + "/" + intAmount);
+			con.println(" Percentage: " + dblPercentage + "%");
+		}else{
+			con.println(" Nice Try! You did not pass the quiz. ");
+			con.println(" Quiz: " + strQuizChoice);
+			con.println(" Score: " + intCorrect + "/" + intAmount);
+			con.println("Percentage: " + dblPercentage + "%");
+		}
+			
 		
-		double dblPercentage=(intCorrect/intAmount)*100;
-        highScores(con, strUserName, strQuizChoice, intCorrect, intAmount, dblPercentage);
-    }
 }
     public static void recordedHighScores(Console con){
 		TextInputFile highScores=new TextInputFile("HighScores.txt");
@@ -141,8 +161,11 @@ public static void showAvailableQuizzes(Console con){
 		
     public static void highScores(Console con, String strUserName, String strQuizChoice, int intCorrect, int intAmount, double dblPercentage) {
         con.println("User: " + strUserName);  
+        con.println();
         con.println("Quiz: " + strQuizChoice);
+        con.println();
         con.println("Score: " + intCorrect + "/" + intAmount + " (" + dblPercentage + "%)");
+        con.println();
         TextOutputFile highScores = new TextOutputFile("HighScores.txt", true);
         highScores.println(strUserName + " - " + strQuizChoice + " - " + dblPercentage + "%");
         highScores.close();
