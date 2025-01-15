@@ -172,20 +172,23 @@ public static void showAvailableQuizzes(Console con){
 		}
 		highScores.close();
 		String dataarr[]=strdata.split(":"); //put in one line because 
-		for(int i=0;i<intCount;i++){
-			String strrowData[]=dataarr[i].split(" - ");
+		int intCount2;
+		int intCount3=0;
+		int intCount4;
+		for(intCount2=0;intCount2<intCount3;intCount2++){
+			String strrowData[]=dataarr[intCount2].split(" - ");
 			String strp1=strrowData[2];
-			strp1=strp1.substring(0,strp1.length()-2);
+			strp1=strp1.substring(1,strp1.length()-4);
 			double dblp1=Double.parseDouble(strp1);
-			for(int j=i+1;j<intCount;j++){
-		        String rowData2[]=dataarr[j].split(" - ");
-		    String strp2=rowData2[2];
-			strp2=strp2.substring(0,strp2.length()-2);
+			for(intCount4=intCount2+1;intCount4<intCount3;intCount4++){
+		        String rowData2[]=dataarr[intCount4].split(" - ");
+		    String strp2=rowData2[1];
+			strp2=strp2.substring(0,strp2.length()-1);
 			double dblp2=Double.parseDouble(strp2);
 			if(dblp1<dblp2){
-				String strTemp=dataarr[i];
-	            dataarr[i]=dataarr[j];
-	            dataarr[j]=strTemp;
+				String strTemp=dataarr[intCount2];
+	            dataarr[intCount2]=dataarr[intCount4];
+	            dataarr[intCount4]=strTemp;
 	      }
 	  }
   }
