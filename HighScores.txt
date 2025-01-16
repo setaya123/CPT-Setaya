@@ -12,3 +12,6 @@ ardiana - kia - 50.0%
 Setaya - Kia - 50.0%
 tina - kia - 70.0%
 tina - kia - 30.0%
+Setaya - Kia - 80.0%
+Setaya - kia - 30.0%
+Kia - kia - 30.0%

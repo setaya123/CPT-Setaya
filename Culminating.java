@@ -11,18 +11,18 @@ public class Culminating{
 		strUserName=con.readLine();
 		con.println();
 		
-		char chMenuChoice=' ';
-		while(chMenuChoice!='q'){ //loop ends if q is entered (will only run once) 
+		char chrMenuChoice=' ';
+		while(chrMenuChoice!='q'){ //loop ends if q is entered (will only run once) 
 			con.println(" Main Menu: ");
 			con.println(" Play quizzes (p)  ");
 			con.println(" View High Score (v) ");
 			con.println(" Help (h) ");
 			con.println(" Quit Game (q) ");
 			con.println(" Enter your choice" );
-			chMenuChoice=con.readChar();
+			chrMenuChoice=con.readChar();
 			con.println();
 		
-		if(chMenuChoice=='p') 
+		if(chrMenuChoice=='p') 
 			showAvailableQuizzes(con);
 			con.println();
 			con.println(" Enter your choice of the quiz: ");
@@ -31,16 +31,13 @@ public class Culminating{
 		
 		if(strQuizChoice.equalsIgnoreCase("kia")||strQuizChoice.equalsIgnoreCase("toyoto") || strQuizChoice.equalsIgnoreCase("rolls-royce")){
 			 playQuizzes(con, strUserName, strQuizChoice);
-		}else{
-			con.println(" Invalid quiz choice. Returning to main menu.");
-		}
-	}else if (chMenuChoice=='v'){ 
+	}else if(chrMenuChoice=='v'){ 
     recordedHighScores(con);
-    }else if(chMenuChoice=='h'){
+    }else if(chrMenuChoice=='h'){
 		 HelpOption(con);
-    }else if(chMenuChoice=='s'){
+    }else if(chrMenuChoice=='s'){
 		SecretMenu(con);
-	}else if(chMenuChoice=='q'){
+	}else if(chrMenuChoice=='q'){
 		con.println(" Thank you for playing Multiple Choice Game! ");	
 	    con.println();
 		
@@ -60,7 +57,6 @@ public static void showAvailableQuizzes(Console con){
 		}
         quizNames.close();
     }
-}
 	public static void HelpOption(Console con){
 		con.println(" You are given three quiz choices: Kia,Toyoto, Rolls-Royce");
 		 con.println(" Each question has 4 answers. Enter the corresponding letter(a,b,c,d) for your answer");
@@ -228,6 +224,7 @@ public static void showAvailableQuizzes(Console con){
 	}
 		
 }
+
 
 
 				
