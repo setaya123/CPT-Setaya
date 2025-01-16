@@ -1,28 +1,28 @@
 import arc.*; 
 import java.util.Random;
 public class Culminating{
-	
 	public static void main(String[]args){
-		Console con=new Console();
-		String strUserName;
-		String strQuizChoice;
+       Console con=new Console("Multiple-Choice Game", 1280, 720);
+       String strUserName;
+       String strQuizChoice;
 		
 		con.println(" Welcome to the Multiple-Choice Game!");
 		con.println(" Enter your name: ");
 		strUserName=con.readLine();
 		con.println();
 		
-		String strMenuChoice="";
-		while(!strMenuChoice.equalsIgnoreCase("q")){
+		char chMenuChoice=' ';
+		while(chMenuChoice!='q'){ //loop ends if q is entered (will only run once) 
 			con.println(" Main Menu: ");
 			con.println(" Play quizzes (p)  ");
 			con.println(" View High Score (v) ");
+			con.println(" Help (h) ");
 			con.println(" Quit Game (q) ");
 			con.println(" Enter your choice" );
-			strMenuChoice=con.readLine();
+			chMenuChoice=con.readChar();
 			con.println();
 		
-		if(strMenuChoice.equalsIgnoreCase("p")){
+		if(chMenuChoice=='p') 
 			showAvailableQuizzes(con);
 			con.println();
 			con.println(" Enter your choice of the quiz: ");
@@ -34,11 +34,16 @@ public class Culminating{
 		}else{
 			con.println(" Invalid quiz choice. Returning to main menu.");
 		}
-	} else if (strMenuChoice.equalsIgnoreCase("v")) {
+	}else if (chMenuChoice=='v'){ 
     recordedHighScores(con);
-	}else if(strMenuChoice.equalsIgnoreCase("q")){
+    }else if(chMenuChoice=='h'){
+		 HelpOption(con);
+    }else if(chMenuChoice=='s'){
+		SecretMenu(con);
+	}else if(chMenuChoice=='q'){
 		con.println(" Thank you for playing Multiple Choice Game! ");	
 	    con.println();
+		
 	}else{
 		con.println("Invalid Choice. Please select one of three above options");
 	    con.println();
@@ -55,7 +60,18 @@ public static void showAvailableQuizzes(Console con){
 		}
         quizNames.close();
     }
-	  
+}
+	public static void HelpOption(Console con){
+		con.println(" You are given three quiz choices: Kia,Toyoto, Rolls-Royce");
+		 con.println(" Each question has 4 answers. Enter the corresponding letter(a,b,c,d) for your answer");
+		 con.println(" User name, quiz, and score will be shown at the front of each question ");
+		 con.println(" Final score and result of the quiz will be shown at the end ");
+	}
+	public static void SecretMenu(Console con){
+		con.println(" What do you call a fly without wings? A walk ");
+		con.println(" Why do you call a cold puppy? A chili dog ");
+		con.println(" Two fish are in a tank. One turns to the other and says, “Any idea how to drive this thing? ");
+	}
     public static void playQuizzes(Console con, String strUserName, String strQuizChoice) {
 		  TextInputFile quizFile=new TextInputFile(strQuizChoice.toLowerCase()+".txt");
 		  
@@ -172,23 +188,20 @@ public static void showAvailableQuizzes(Console con){
 		}
 		highScores.close();
 		String dataarr[]=strdata.split(":"); //put in one line because 
-		int intCount2;
-		int intCount3=0;
-		int intCount4;
-		for(intCount2=0;intCount2<intCount3;intCount2++){
-			String strrowData[]=dataarr[intCount2].split(" - ");
+		for(int i=0;i<intCount;i++){
+			String strrowData[]=dataarr[i].split(" - ");
 			String strp1=strrowData[2];
-			strp1=strp1.substring(1,strp1.length()-4);
+			strp1=strp1.substring(0,strp1.length()-2);
 			double dblp1=Double.parseDouble(strp1);
-			for(intCount4=intCount2+1;intCount4<intCount3;intCount4++){
-		        String rowData2[]=dataarr[intCount4].split(" - ");
-		    String strp2=rowData2[1];
-			strp2=strp2.substring(0,strp2.length()-1);
+			for(int j=i+1;j<intCount;j++){
+		        String rowData2[]=dataarr[j].split(" - ");
+		    String strp2=rowData2[2];
+			strp2=strp2.substring(0,strp2.length()-2);
 			double dblp2=Double.parseDouble(strp2);
 			if(dblp1<dblp2){
-				String strTemp=dataarr[intCount2];
-	            dataarr[intCount2]=dataarr[intCount4];
-	            dataarr[intCount4]=strTemp;
+				String strTemp=dataarr[i];
+	            dataarr[i]=dataarr[j];
+	            dataarr[j]=strTemp;
 	      }
 	  }
   }
