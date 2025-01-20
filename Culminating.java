@@ -1,11 +1,16 @@
-import arc.*; //ADD COMMENTS
+import arc.*;  
 import java.util.Random;
+import java.awt.image.BufferedImage;
 public class Culminating{
 	public static void main(String[]args){
-       Console con=new Console("Multiple-Choice Game", 1280, 720);
-       String strUserName;
-       String strQuizChoice;
+		Console con=new Console("Multiple-Choice Game", 1280, 720);
+      
+		BufferedImage imgBackground = con.loadImage("quiz.jpg");
+		con.drawImage(imgBackground, 0, 0);
+		System.out.println(" Debug: Image 'background png' loaded and drawn properly");
 		
+		String strUserName;
+		String strQuizChoice;
 		con.println(" Welcome to the Multiple-Choice Game!");
 		con.println(" Enter your name: ");
 		strUserName=con.readLine();
@@ -13,6 +18,7 @@ public class Culminating{
 		
 		char chrMenuChoice=' ';
 		while(chrMenuChoice!='q'){ //loop ends if q is entered (will only run once) 
+			System.out.println(" Debug: Main Menu loop started with choice: " + chrMenuChoice);
 			con.println(" Main Menu: ");
 			con.println(" Play quizzes (p)  ");
 			con.println(" View High Score (v) ");
@@ -20,8 +26,8 @@ public class Culminating{
 			con.println(" Quit Game (q) ");
 			con.println(" Enter your choice" );
 			chrMenuChoice=con.readChar();
+			System.out.println( " Debug: User selected menu option: " + chrMenuChoice);
 			con.println();
-		
 		if(chrMenuChoice=='p') {
 			showAvailableQuizzes(con);
 			con.println();
@@ -68,25 +74,30 @@ public static void showAvailableQuizzes(Console con){
         quizNames.close();
     }
 	public static void HelpOption(Console con){
+		ClearScreen(con);
 		con.println(" You are given three quiz choices: Kia,Toyoto, Rolls-Royce");
 		 con.println(" Each question has 4 answers. Enter the corresponding letter(a,b,c,d) for your answer");
 		 con.println(" User name, quiz, and score will be shown at the front of each question ");
 		 con.println(" Final score and result of the quiz will be shown at the end ");
+		 con.println();
 	}
 	public static void SecretMenu(Console con){
+		ClearScreen(con);
 		con.println(" What do you call a fly without wings? A walk ");
 		con.println(" Why do you call a cold puppy? A chili dog ");
 		con.println(" Two fish are in a tank. One turns to the other and says, “Any idea how to drive this thing? ");
+		con.println();
 	}
     public static void playQuizzes(Console con, String strUserName, String strQuizChoice) {
 		  TextInputFile quizFile=new TextInputFile(strQuizChoice.toLowerCase()+".txt");
-		  
+		  System.out.println(" Debug: Opening quiz file: " + strQuizChoice.toLowerCase()+".txt");
 		  int intLines=0;
 		  while(quizFile.eof()==false){
 			  quizFile.readLine();
 			  intLines=intLines+1;
 			}
 			quizFile.close();
+			System.out.println(" Debug: Total lines in quiz file: " + intLines);
 		
 		int intAmount=intLines/6;
 		
@@ -95,6 +106,7 @@ public static void showAvailableQuizzes(Console con){
 		Random rand=new Random();
 		
 		quizFile=new TextInputFile(strQuizChoice.toLowerCase()+".txt");
+		System.out.println(" Debug: Loading quiz data into array. ");
 		int intCount;
 		for(intCount=0;intCount<intAmount;intCount++){
 			strquizParts[intCount][0]=quizFile.readLine();
@@ -105,9 +117,10 @@ public static void showAvailableQuizzes(Console con){
 			strquizParts[intCount][5]=quizFile.readLine();
 			randomNumbers[intCount]=(int)(Math.random()*100)+1;
 			strquizParts[intCount][6]=""+randomNumbers[intCount];
-
+            System.out.println(" Debug: Loaded question: " + (intCount+1) );
 		}
 		quizFile.close();
+		System.out.println(" Debug: Finished loading quiz data.");
 		
 		
 		String[] strTemp;
@@ -184,6 +197,7 @@ public static void showAvailableQuizzes(Console con){
 }
     public static void recordedHighScores(Console con){
 		TextInputFile highScores=new TextInputFile("HighScores.txt");
+		System.out.println(" Debug: Reading HighScores.txt");
 		String strReadScore;
 		con.println(" High Scores : ");
 		String strdata="";
@@ -193,8 +207,10 @@ public static void showAvailableQuizzes(Console con){
 			strReadScore=highScores.readLine();
 		    strdata=strdata + strReadScore + ":";
 		    intCount=intCount + 1; // to know how many rows there are
+		    System.out.println(" Debug: Read line from HighScores.txt: " + strReadScore);
 		}
 		highScores.close();
+		System.out.println(" Debug: Finished reading HighScores.txt");
 		String dataarr[]=strdata.split(":"); //put in one line because (seperate it by a line)
 		for(int i=0;i<intCount;i++){
 			String strrowData[]=dataarr[i].split(" - ");
@@ -231,8 +247,10 @@ public static void showAvailableQuizzes(Console con){
     }
     public static void writeScore(String strUserName, String strQuizChoice, double dblPercentage){
 		TextOutputFile highScores = new TextOutputFile("HighScores.txt", true);
+        System.out.println(" Debug: Writing score to HighScores.txt for user:" + strUserName);
         highScores.println(strUserName + " - " + strQuizChoice + " - " + dblPercentage + "%");
         highScores.close();
+        System.out.println(" Debug: Score written successfully");
 	}
 		
 }
