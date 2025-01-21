@@ -56,7 +56,7 @@ public class FinalCPTSetaya{
 		
                 if (strQuizChoice.equalsIgnoreCase("kia")
                         || strQuizChoice.equalsIgnoreCase("toyoto")
-                        || strQuizChoice.equalsIgnoreCase("rolls-royce")) {
+                        || strQuizChoice.equalsIgnoreCase("rollsroyce")) {
                     // Switch to plain console for quiz gameplay
                     con.setBackgroundColor(Color.BLACK);
                     playQuizzes(con, strUserName, strQuizChoice);
@@ -80,7 +80,7 @@ public class FinalCPTSetaya{
                 con.println(" Thank you for playing Multiple Choice Game! ");
                 con.println();
             } else {  // Invalid menu choice
-                con.println(" Invalid Choice. Please select one of the available options");
+                con.println(" Invalid Choice. Please select one of the available options ");
                 con.println();
             }
         }
@@ -118,7 +118,7 @@ public class FinalCPTSetaya{
 		ClearScreen(con);
     
     // Provides instructions for the user
-		con.println(" You are given three quiz choices: Kia, Toyoto, Rolls-Royce ");
+		con.println(" You are given three quiz choices: Kia, Toyoto, RollsRoyce ");
 		con.println(" Each question has 4 answers. Enter the corresponding letter (a, b, c, d) for your answer. ");
 		con.println(" User name, quiz, and score will be shown at the front of each question. ");
 		con.println(" Final score and result of the quiz will be shown at the end. ");

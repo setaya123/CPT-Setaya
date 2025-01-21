@@ -10,3 +10,6 @@ Setaya - Kia - 20.0%
 Setaya - Kia - 30.0%
 Setaya - Kia - 30.0%
 Setaya - Kia - 30.0%
+p - Toyoto - 0.0%
+p - kia - 0.0%
+Setaya - RollsRoyce - 20.0%
