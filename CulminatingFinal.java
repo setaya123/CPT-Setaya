@@ -11,7 +11,7 @@ Created:	1/21/2024
 -------------------------------------------------------------------------------
 */
 
-public class tryingpictures{
+public class CulminatingFinal{
 	public static void main(String[]args){
 		
 		// Intialize the console window with a specific size and title

@@ -1,13 +1,14 @@
 import arc.*;  
 import java.util.Random;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 public class Culminating{
 	public static void main(String[]args){
 		Console con=new Console("Multiple-Choice Game", 1280, 720);
-      
-		BufferedImage imgBackground = con.loadImage("quiz.jpg");
+        
+		BufferedImage imgBackground = con.loadImage("Begin.jpg");
 		con.drawImage(imgBackground, 0, 0);
-		System.out.println(" Debug: Image 'background png' loaded and drawn properly");
+		System.out.println(" Debug: Displayed 'Begin.jpg'");
 		
 		String strUserName;
 		String strQuizChoice;
@@ -17,29 +18,27 @@ public class Culminating{
 		con.println();
 		
 		char chrMenuChoice=' ';
-		while(chrMenuChoice!='q'){ //loop ends if q is entered (will only run once) 
+		while(chrMenuChoice!='q'){
+			BufferedImage imgMainMenu=con.loadImage("MainMenu.jpg");
+			con.drawImage(imgMainMenu, 0, 0);
 			System.out.println(" Debug: Main Menu loop started with choice: " + chrMenuChoice);
-			con.println(" Main Menu: ");
-			con.println(" Play quizzes (p)  ");
-			con.println(" View High Score (v) ");
-			con.println(" Help (h) ");
-			con.println(" Quit Game (q) ");
-			con.println(" Enter your choice" );
+			
 			chrMenuChoice=con.readChar();
 			System.out.println( " Debug: User selected menu option: " + chrMenuChoice);
-			con.println();
+			
 		if(chrMenuChoice=='p') {
-			showAvailableQuizzes(con);
-			con.println();
+			BufferedImage imgQuizzes=con.loadImage("quizzes.jpg");
+			con.drawImage(imgQuizzes,0,0);
+			System.out.println(" Debug: Displayed 'quizzes.jpg'");
+			
 			con.println(" Enter your choice of the quiz: ");
 			strQuizChoice=con.readLine();
-			con.println();
+			System.out.println(" Debug: User selected quiz: " + strQuizChoice);
 		
 		if(strQuizChoice.equalsIgnoreCase("kia")
-		||strQuizChoice.equalsIgnoreCase("toyoto") 
-		|| strQuizChoice.equalsIgnoreCase("rolls-royce")){
+		    ||strQuizChoice.equalsIgnoreCase("toyoto") 
+		    || strQuizChoice.equalsIgnoreCase("rolls-royce")){
 			 playQuizzes(con, strUserName, strQuizChoice); 
-     //this bracket is for line 34
     }else{
 		con.println(" Invalid Choice ");
 	}
