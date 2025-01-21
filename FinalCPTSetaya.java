@@ -49,20 +49,22 @@ public class FinalCPTSetaya{
                 ClearScreen(con);
                 showAvailableQuizzes(con);
 			
-			// Ask the user for their quiz choice
+				// Ask the user for their quiz choice
+				String strQuizChoice="";
                 con.println(" Enter your choice of the quiz: ");
-                String strQuizChoice = con.readLine();
+                strQuizChoice = con.readLine();
 				System.out.println(" Debug: User selected quiz: " + strQuizChoice);
 		
-                if (strQuizChoice.equalsIgnoreCase("kia")
-                        || strQuizChoice.equalsIgnoreCase("toyoto")
-                        || strQuizChoice.equalsIgnoreCase("rollsroyce")) {
+                while (!(strQuizChoice.equalsIgnoreCase("kia") ||
+                        strQuizChoice.equalsIgnoreCase("toyoto")||
+                        strQuizChoice.equalsIgnoreCase("audi"))) {
                     // Switch to plain console for quiz gameplay
-                    con.setBackgroundColor(Color.BLACK);
-                    playQuizzes(con, strUserName, strQuizChoice);
-                } else {
-                    con.println(" Invalid Choice ");
+                    con.println(" Invalid Choice. Please enter a valid quiz name (kia, toyoto, audi)");
+                    strQuizChoice=con.readLine();
                 }
+                con.setBackgroundColor(Color.BLACK);
+                playQuizzes(con, strUserName, strQuizChoice);
+      
             } else if (chrMenuChoice == 'v' || chrMenuChoice == 'V') {
                 // Show high scores
                 con.setBackgroundColor(Color.BLACK);
@@ -98,7 +100,7 @@ public class FinalCPTSetaya{
         con.clear();
     }
 
-//Method to show available quizzes
+	//Method to show available quizzes
 	public static void showAvailableQuizzes(Console con){		  
         String strLine; //String variable to hold each line from the file
         TextInputFile quizNames=new TextInputFile("tests.txt"); //open file that contains the list of quizzes
@@ -114,10 +116,10 @@ public class FinalCPTSetaya{
 	}
 
 	public static void HelpOption(Console con) {
-    // Clear the screen before displaying help content
+		// Clear the screen before displaying help content
 		ClearScreen(con);
     
-    // Provides instructions for the user
+		// Provides instructions for the user
 		con.println(" You are given three quiz choices: Kia, Toyoto, RollsRoyce ");
 		con.println(" Each question has 4 answers. Enter the corresponding letter (a, b, c, d) for your answer. ");
 		con.println(" User name, quiz, and score will be shown at the front of each question. ");
@@ -127,7 +129,7 @@ public class FinalCPTSetaya{
 		con.println(" Enter X to go back to Main Menu "); // Asks user to return to the main menu
 		String strOption=con.readLine();
     
-    // If the user enters 'X', return to the main menu
+		// If the user enters 'X', return to the main menu
 		if (strOption.equalsIgnoreCase("X")) {
 			BufferedImage imgMainMenu = con.loadImage("MainMenu.jpg"); // Load the main menu image
 			con.clear(); // Clear the screen
@@ -135,12 +137,12 @@ public class FinalCPTSetaya{
 		}
 	} 
 
-// Method to display the secret menu
+		// Method to display the secret menu
 	public static void SecretMenu(Console con){
-	// Clear the screen before shwoing the secret menu contest
+		// Clear the screen before shwoing the secret menu contest
 		ClearScreen(con);
     
-    // Show jokes for the secret menu
+		// Show jokes for the secret menu
 		con.println(" What do you call a fly without wings? A walk ");
 		con.println(" Why do you call a cold puppy? A chili dog ");
 		con.println(" Two fish are in a tank. One turns to the other and says, “Any idea how to drive this thing? ");
@@ -149,7 +151,7 @@ public class FinalCPTSetaya{
 		con.println(" Enter X to go back to Main Menu "); // Asks user to return to the main menu
 		String strOption=con.readLine();
     
-    // If the user enters 'X', return to the main menu
+		// If the user enters 'X', return to the main menu
 		if (strOption.equalsIgnoreCase("X")) {
 			BufferedImage imgMainMenu = con.loadImage("MainMenu.jpg"); // Load the main menu image
 			con.clear(); // Clear the screen
@@ -157,12 +159,12 @@ public class FinalCPTSetaya{
 		}
 	}
 
-//Method to execute the quiz gameplay
+	//Method to execute the quiz gameplay
 	public static void playQuizzes(Console con, String strUserName, String strQuizChoice) {
 		TextInputFile quizFile=new TextInputFile(strQuizChoice.toLowerCase()+".txt"); //Open the selected quiz file
 		System.out.println(" Debug: Opening quiz file: " + strQuizChoice.toLowerCase()+".txt");
     
-    //Count the number of lines in the quiz file
+		//Count the number of lines in the quiz file
 		int intLines=0;
 		while(quizFile.eof()==false){
 			quizFile.readLine();
@@ -171,7 +173,7 @@ public class FinalCPTSetaya{
 		quizFile.close();
 		System.out.println("Debug: Total lines in quiz file: " + intLines);
     
-    // Calculate the number of questions in the quiz
+		// Calculate the number of questions in the quiz
 		int intAmount = intLines / 6;
 			
 		String[][]strquizParts=new String[intAmount][7]; // Array to store quiz questions, options, and answers
@@ -180,7 +182,7 @@ public class FinalCPTSetaya{
 		quizFile=new TextInputFile(strQuizChoice.toLowerCase()+".txt"); // Reopen the quiz file to load the data into the array
 		System.out.println(" Debug: Loading quiz data into array. ");
     
-    // Loop to load quiz data
+		// Loop to load quiz data
 		int intCount;
 		for (intCount = 0; intCount < intAmount; intCount++) {
 			strquizParts[intCount][0] = quizFile.readLine(); // Question
@@ -196,7 +198,7 @@ public class FinalCPTSetaya{
 		quizFile.close();
 		System.out.println("Debug: Finished loading quiz data.");
 	
-// Sort the questions based on random numbers for shuffling
+		// Sort the questions based on random numbers for shuffling
 		String[] strTemp;
 		int tempNum;
 		for (int intRow2 = 0; intRow2 < randomNumbers.length - 1; intRow2++) {
@@ -215,7 +217,7 @@ public class FinalCPTSetaya{
 			}
 		} 
 		
-    // Initialize variables for tracking correct answers and score
+		// Initialize variables for tracking correct answers and score
 		int intCorrect = 0;
 		double dblPercentage = 0;
 		 
@@ -230,7 +232,7 @@ public class FinalCPTSetaya{
 			con.println(" d) " + strquizParts[intCount][4]);	
 			con.println(" Enter your answer(a,b,c,d): ");
 		  
-		  // Read the user's answer
+			// Read the user's answer
 			String strAnswer=con.readLine();
 			con.println();
 			   
@@ -259,7 +261,7 @@ public class FinalCPTSetaya{
 			dblPercentage=((double)intCorrect/(double)intAmount)*100;
 		}
     
-    // Display the final result after completing the quiz
+		// Display the final result after completing the quiz
 		dblPercentage = ((double) intCorrect / (double) intAmount) * 100; // Calculate the percentage score
 
 		if (dblPercentage >= 50) { // If the score is 50% or higher, the user passes
@@ -270,11 +272,11 @@ public class FinalCPTSetaya{
 
 			writeScore(strUserName, strQuizChoice, dblPercentage); // Write the score to the high scores file
 
-    // Prompt user to return to the main menu
+			// Prompt user to return to the main menu
 			con.println(" Enter X to go back to Main Menu ");
 			String strOption = con.readLine();
 
-    // If the user enters 'X', return to the main menu
+			// If the user enters 'X', return to the main menu
 			if (strOption.equalsIgnoreCase("X")) {
 				BufferedImage imgMainMenu = con.loadImage("MainMenu.jpg"); // Load the main menu image
 				con.clear(); // Clear the screen of text
@@ -288,11 +290,11 @@ public class FinalCPTSetaya{
 
 			writeScore(strUserName, strQuizChoice, dblPercentage); // Write the score to the high scores file
 
-    // Ask user to return to the main menu
+			// Ask user to return to the main menu
 			con.println(" Enter X to go back to Main Menu ");
 			String strOption = con.readLine();
 
-    // If the user enters 'X', return to the main menu
+			// If the user enters 'X', return to the main menu
 			if (strOption.equalsIgnoreCase("X")) {
 			BufferedImage imgMainMenu = con.loadImage("MainMenu.jpg"); // Load the main menu image
 			con.clear(); // Clear the screen of text
@@ -303,7 +305,7 @@ public class FinalCPTSetaya{
 		con.println();
 		
 	} 
-// Read and show the recorded high scores
+	// Read and show the recorded high scores
 	public static void recordedHighScores(Console con){
 		TextInputFile highScores=new TextInputFile("HighScores.txt");
 		System.out.println(" Debug: Reading HighScores.txt");
@@ -322,10 +324,10 @@ public class FinalCPTSetaya{
 		highScores.close();
 		System.out.println(" Debug: Finished reading HighScores.txt");
 	
-	// Split the high scores data into rows
+		// Split the high scores data into rows
 		String dataarr[]=strdata.split(":");
     
-    // Sort the high scores in descending order
+		// Sort the high scores in descending order
 		int intCount2;
 		int intCount3;
 		for (intCount2 = 0; intCount2 < intCount; intCount2++) {
@@ -349,12 +351,12 @@ public class FinalCPTSetaya{
 			}
 		}
     
-    // Show the sorted high scores
+		// Show the sorted high scores
 		for (int i = 0; i < intCount; i++) {
 			con.println(dataarr[i]);
 		}
     
-    // Ask user to return to the main menu
+		// Ask user to return to the main menu
 		con.println(" Enter X to go back to Main Menu ");
 		String strOption = con.readLine();
 		if (strOption.equalsIgnoreCase("X")) {
