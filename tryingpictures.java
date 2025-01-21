@@ -18,10 +18,11 @@ public class tryingpictures{
 		// Intialize the console window with a specific size, and title
         Console con=new Console("Multiple-Choice Game", 1280, 720);
         
-        // Show the starting screen(Begin.jpg)
-        BufferedImage imgBackground = con.loadImage("Begin.jpg");
+        // Show the starting screen(StartGame.jpg)
+        BufferedImage imgBackground = con.loadImage("StartGame.jpg");
 		con.drawImage(imgBackground, 0, 0);
-		System.out.println(" Debug: Displayed 'Begin.jpg'");
+		con.repaint();
+		System.out.println(" Debug: Displayed 'StartGame.jpg' ");
 		
 		// Wait for the user to click to continue
         MouseClick(con);  
@@ -100,7 +101,7 @@ public static void MouseClick(Console con) { //wait for mouse click to continue
 
 //Method to show available quizzes
 public static void showAvailableQuizzes(Console con){		  
-        String strLine; //strng variable to hold each line from the file
+        String strLine; //String variable to hold each line from the file
         TextInputFile quizNames=new TextInputFile("tests.txt"); //open file that contains the list of quizzes
         con.println(" Avaliable Quizzes: "); //header for avaliable quizzes
 	
@@ -145,6 +146,16 @@ public static void SecretMenu(Console con){
 	con.println(" Why do you call a cold puppy? A chili dog ");
 	con.println(" Two fish are in a tank. One turns to the other and says, “Any idea how to drive this thing? ");
 	con.println(); //Blank line for spacing 
+	
+	con.println(" Enter X to go back to Main Menu "); // Asks user to return to the main menu
+    String strOption=con.readLine();
+    
+    // If the user enters 'X', return to the main menu
+    if (strOption.equalsIgnoreCase("X")) {
+        BufferedImage imgMainMenu = con.loadImage("MainMenu.jpg"); // Load the main menu image
+        con.clear(); // Clear the screen
+        con.drawImage(imgMainMenu, 0, 0); // Show  the main menu image
+	}
 }
 
 //Method to execute the quiz gameplay
@@ -252,7 +263,7 @@ public static void playQuizzes(Console con, String strUserName, String strQuizCh
     // Display the final result after completing the quiz
 dblPercentage = ((double) intCorrect / (double) intAmount) * 100; // Calculate the percentage score
 
-if (dblPercentage >= 80) { // If the score is 80% or higher, the user passes
+if (dblPercentage >= 80) { // If the score is 50% or higher, the user passes
     con.println(" Congratulations, you passed the quiz! ");
     con.println(" Quiz: " + strQuizChoice); // Display the selected quiz name
     con.println(" Score: " + intCorrect + "/" + intAmount); // Display the number of correct answers out of total questions
@@ -270,7 +281,7 @@ if (dblPercentage >= 80) { // If the score is 80% or higher, the user passes
         con.clear(); // Clear the screen of text
         con.drawImage(imgMainMenu, 0, 0); // Display the main menu image
     }
-} else { // If the score is less than 80%, the user does not pass
+} else { // If the score is less than 50%, the user does not pass
     con.println(" Nice Try! You did not pass the quiz. ");
     con.println(" Quiz: " + strQuizChoice); // Show the selected quiz name
     con.println(" Score: " + intCorrect + "/" + intAmount); // Show the number of correct answers out of total questions
